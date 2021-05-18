@@ -1,24 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
 
 function App() {
+  const [items, setItems] = React.useState([]);
+
+  function mudaEstado() {
+    let novoItem = document.getElementById("newItem").value;
+    setItems([...items, novoItem]);
+  }
+
+  function removeItem() {
+    setItems(items.splice(1, 1));
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1 style={{ textTransform: "uppercase" }}>
+        Adicionando e removendo itens
+      </h1>
+      <section style={{ display: "flex" }}>
+        <input
+          type="text"
+          style={{ width: "50%" }}
+          placeholder="Adicionar Paciente"
+          id="newItem"
+        />
+        <button onClick={mudaEstado} style={{ marginLeft: "30px" }}>
+          Add
+        </button>
+      </section>
+      <ul>
+        {items.map((item) => (
+          <li>
+            {item}{" "}
+            <button
+              onClick={() => setItems(items.splice(1))}
+              style={{ marginLeft: "40px" }}
+            >
+              Remover item
+            </button>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 
